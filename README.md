@@ -5,7 +5,7 @@
 * Pygame
 ## Tasks
 ### Preprocessing
-- [ ] Audio input, output signals function (Robert)
+- [x] Audio input, output signals function (Robert)
 
 ### Visualization (Lindy, Serena, Jason)
 - [ ] Fourier transform math processing
@@ -15,6 +15,7 @@
 
 ### Genre classification 
 - [ ] Look for classification dataset (Robert)
+- [ ] Feature Extraction (Robert)
 - [ ] Calssification Model (multiclass) (Robert)
 
 ### UI
