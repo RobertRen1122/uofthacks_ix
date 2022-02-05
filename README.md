@@ -1,6 +1,8 @@
 # UofTHacks IX
 ## Introduction
-
+## Libraries
+* Librosa
+* Pygame
 ## Tasks
 ### Preprocessing
 - [ ] Audio input, output signals function (Robert)
@@ -15,6 +17,5 @@
 - [ ] Look for classification dataset (Robert)
 - [ ] Calssification Model (multiclass) (Robert)
 
-### Web
-- [ ] (Research) Combining the visualization and genre classification together
-- [ ] (Research) Hosting everything using maybe Flask
+### UI
+TBA
