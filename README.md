@@ -16,3 +16,4 @@
 
 ### Web
 - [ ] (Research) Combining the visualization and genre classification together
+- [ ] (Research) Hosting everything using maybe Flask
