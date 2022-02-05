@@ -3,16 +3,17 @@
 
 ## Tasks
 ### Preprocessing
-- [ ] Audio input, output signals function
+- [ ] Audio input, output signals function (Robert)
 
-### Visualization
+### Visualization (Lindy, Serene, Jason)
 - [ ] Fourier transform math processing
 - [ ] Display the processed results as animations
-- [ ] Have annimation adapt to different genres
+- [ ] Adadptable animation
+- [ ] Change background based on genres 
 
-### Genre classification
-- [ ] Look for classification dataset
-- [ ] Calssification Model (multiclass)
+### Genre classification 
+- [ ] Look for classification dataset (Robert)
+- [ ] Calssification Model (multiclass) (Robert)
 
 ### Web
 - [ ] (Research) Combining the visualization and genre classification together
