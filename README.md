@@ -7,7 +7,7 @@
 ### Preprocessing
 - [ ] Audio input, output signals function (Robert)
 
-### Visualization (Lindy, Serene, Jason)
+### Visualization (Lindy, Serena, Jason)
 - [ ] Fourier transform math processing
 - [ ] Display the processed results as animations
 - [ ] Adadptable animation
