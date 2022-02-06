@@ -77,7 +77,7 @@ if __name__ == "__main__":
     audio_path = "snake.wav"
     y, sampling_rate = librosa.load(audio_path, sr=8000)
     
-    music_length = 30 #len(y) / sampling_rate #in seconds
+    music_length = 10 #len(y) / sampling_rate #in seconds
     update_interval = 0.05 #in seconds
     
     print(music_length, sampling_rate)
@@ -95,6 +95,7 @@ if __name__ == "__main__":
     fig = plt.figure()
     ax = plt.axes(projection='3d', xlim=(-0.8, 0.8),
                   ylim=(-0.8, 0.8), zlim=(-0.8,0.8))
+
     #alphas=[0.1 for i in range(len(music_FFT[0][0]))]
     graph = ax.scatter(music_FFT[0][0],
                        music_FFT[0][1],
@@ -109,12 +110,17 @@ if __name__ == "__main__":
             return #rects
 
         trace = music_FFT[int(current_frame)]
+
+        # graph._Colormap = col
         graph._offsets3d = (trace[0],
                             trace[1],
                             trace[2])
         graph._alpha = [min(trace[3][i], 1) for i in range(len(trace[3]))]
         graph._sizes = trace[3]*50
-        
+        cm = plt.get_cmap("viridis")
+        col = [cm(float(i) / len(music_FFT[0][0])) for i in range(len(music_FFT[0][0]))]
+        graph._facecolor3d = col
+        graph._edgecolor3d = col
         #time.sleep(update_interval)
         #print(time.time()-current_time)
         #return line,
