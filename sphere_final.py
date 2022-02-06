@@ -6,6 +6,7 @@ import vlc
 from matplotlib.animation import FuncAnimation
 from mpl_toolkits.mplot3d import Axes3D
 
+angle = 0
 def get_FFT(y,music_length,sampling_rate,update_interval):
     result=[]
     frame_interval = int(sampling_rate * update_interval)
@@ -75,9 +76,9 @@ def get_FFT(y,music_length,sampling_rate,update_interval):
     return result
         
 if __name__ == "__main__":
-    audio_path = "snake.wav"
+    audio_path = "Snakes.wav"
     y, sampling_rate = librosa.load(audio_path, sr=8000)
-    
+    angle = 0
     music_length = 60#len(y) / sampling_rate #in seconds
     update_interval = 0.03 #in seconds
     
@@ -94,15 +95,41 @@ if __name__ == "__main__":
     music_play_start_time = 0
 
     fig = plt.figure()
+
     ax = plt.axes(projection='3d', xlim=(-1, 1),
                   ylim=(-1, 1), zlim=(-1,1))
+
+    num = 6000
+    # Hide grid lines
+
+    ax.grid(False)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_zticks([])
+    ax.set_axis_off()
+    x_his_1 = np.linspace(-1, 10, num)
+    x_his_2 = np.linspace(-10, 1, num)
+    height = 16 # even
+    z_his = np.ones(num)
+    for i in range(len(z_his)):
+        z_his[i] = height
+    cm_b = plt.get_cmap("cividis")
+    col_b = [cm_b(float(i) / len(x_his_1)) for i in range(num*2)]
+    background = ax.bar(x_his_1, z_his, zs=1, zdir='y', alpha=0.5, align='edge', bottom=-1*height/2, width=1/num, color = col_b[num:])
+    background_1 = ax.bar(x_his_2, z_his, zs=-1, zdir='x', alpha=0.5, align='edge', bottom=-1*height/2, width=1 / num, color=col_b[:num])
+
     #alphas=[0.1 for i in range(len(music_FFT[0][0]))]
     graph = ax.scatter(music_FFT[0][0],
                        music_FFT[0][1],
                        music_FFT[0][2], marker='o')
+
+    # ax.bar(xs, ys, alpha=0.8)
+    # background = ax.bar3d(x_his,y_his,z_his)
     
+    # background  = 
         
     def update(frame):
+        global angle
         current_time = time.time()
         current_frame = ((current_time - music_play_start_time) //
                          update_interval)
@@ -121,7 +148,9 @@ if __name__ == "__main__":
         col = [cm(float(i) / len(music_FFT[0][0])) for i in range(len(music_FFT[0][0]))]
         graph._facecolor3d = col
         graph._edgecolor3d = col
-            
+        # =============================================
+        # ax.view_init(elev=10., azim=angle)
+        # angle += 1
         #time.sleep(update_interval)
         #print(time.time()-current_time)
         #return line,
