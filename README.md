@@ -14,8 +14,8 @@
 - [ ] Change background based on genres 
 
 ### Genre classification 
-- [ ] Look for classification dataset (Robert)
-- [ ] Feature Extraction (Robert)
+- [x] Look for classification dataset (Robert)
+- [x] Feature Extraction (Robert)
 - [ ] Calssification Model (multiclass) (Robert)
 
 ### UI
