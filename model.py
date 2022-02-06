@@ -89,41 +89,31 @@ def baseline_model():
     zcr_layer = Input(shape=(1280,))
     tempo_layer = Input(shape=(1,))
 
-    # first branch
     x = Conv2D(filters=4, input_shape=(12, 1280, 1), kernel_size=(3, 3), activation='relu')(chroma_layer)
     x = MaxPooling2D((2, 2))(x)
     x = Reshape((12780,))(x)
     x = Dense(100, activation='relu')(x)
-    # x = Dropout(0.2)(x)
 
-    # second branch
     y = Conv2D(filters=4, input_shape=(128, 1280, 1), kernel_size=(3, 3), activation='relu')(mel_layer)
     y = MaxPooling2D(pool_size=(2, 2))(y)
     y = Reshape((161028,))(y)
     y = Dense(100, activation='relu')(y)
 
-    # third branch
     z = Dense(1280, activation='relu')(centroid_layer)
     z = Dense(100, activation='relu')(z)
     z = Dense(20, activation='relu')(z)
 
-    # fourth branch
     a = Dense(1280, activation='relu')(rolloff_layer)
     a = Dense(100, activation='relu')(a)
     a = Dense(20, activation='relu')(a)
 
-    # fifth branch
     b = Dense(1280, activation='relu')(zcr_layer)
     b = Dense(100, activation='relu')(b)
     b = Dense(20, activation='relu')(b)
 
-    # sixth branch
     c = Dense(1, activation='relu')(tempo_layer)
-
-    # print(x.shape, y.shape, z.shape, a.shape, b.shape, c.shape)
-
-    # combined = np.concatenate([x.output, y.output, z.output, a.output, b.output, c.output])
-    combined = Concatenate()([x, y, z, a, b, c])  # add c if want
+    
+    combined = Concatenate()([x, y, z, a, b, c]) 
 
     # final layer
     final = Dense(100, activation='relu')(combined)
