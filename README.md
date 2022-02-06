@@ -23,4 +23,4 @@ We used the GTZAN Dataset which contains 10 genres of music with 100 30-second c
 - [x] Calssification Model (multiclass) (Robert)
 
 ### UI
-TBA
+- [x] UI for demonstration purpose
