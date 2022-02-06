@@ -6,7 +6,6 @@ import vlc
 from matplotlib.animation import FuncAnimation
 from mpl_toolkits.mplot3d import Axes3D
 
-angle = 0
 def get_FFT(y,music_length,sampling_rate,update_interval):
     result=[]
     frame_interval = int(sampling_rate * update_interval)
@@ -76,10 +75,10 @@ def get_FFT(y,music_length,sampling_rate,update_interval):
     return result
         
 if __name__ == "__main__":
-    audio_path = "Snakes.wav"
+    audio_path = "snake.wav"
     y, sampling_rate = librosa.load(audio_path, sr=8000)
-    angle = 0
-    music_length = 60#len(y) / sampling_rate #in seconds
+    
+    music_length = 30#len(y) / sampling_rate #in seconds
     update_interval = 0.03 #in seconds
     
     print(music_length, sampling_rate)
@@ -95,18 +94,19 @@ if __name__ == "__main__":
     music_play_start_time = 0
 
     fig = plt.figure()
-
     ax = plt.axes(projection='3d', xlim=(-1, 1),
                   ylim=(-1, 1), zlim=(-1,1))
-
-    num = 6000
+    
+    num = 10
     # Hide grid lines
-
+    
     ax.grid(False)
     ax.set_xticks([])
     ax.set_yticks([])
     ax.set_zticks([])
     ax.set_axis_off()
+    '''
+    
     x_his_1 = np.linspace(-1, 10, num)
     x_his_2 = np.linspace(-10, 1, num)
     height = 16 # even
@@ -115,18 +115,31 @@ if __name__ == "__main__":
         z_his[i] = height
     cm_b = plt.get_cmap("cividis")
     col_b = [cm_b(float(i) / len(x_his_1)) for i in range(num*2)]
-    background = ax.bar(x_his_1, z_his, zs=1, zdir='y', alpha=0.5, align='edge', bottom=-1*height/2, width=1/num, color = col_b[num:])
-    background_1 = ax.bar(x_his_2, z_his, zs=-1, zdir='x', alpha=0.5, align='edge', bottom=-1*height/2, width=1 / num, color=col_b[:num])
+    background = ax.bar(x_his_1, z_his, zs=1, zdir='y', alpha=0.5,
+                        align='edge', bottom=-1*height/2, width=2/num, color = col_b[num:])
+    background_1 = ax.bar(x_his_2, z_his, zs=-1, zdir='x', alpha=0.5, align='edge',
+                          bottom=-1*height/2, width=2/num, color=col_b[:num])
+    
+    normal = np.array([1, -1, 1])
+    point = np.array([5, -5, -5])
+    d = -point.dot(normal)
+    xx, yy = np.meshgrid(range(10), range(10))
+    z = (-normal[0] * xx - normal[1] * yy - d) * 1. /normal[2]
+    ax.plot_surface(xx, xx, z, cmap=plt.cm.YlGnBu_r, zorder=-10)
+    '''
+    r = 3
+    u, v = np.mgrid[0:2*np.pi:50j, 0:np.pi:50j]
+    x = r*np.cos(u) * np.sin(v)
+    y = r*np.sin(u) * np.sin(v)
+    z = r*np.cos(v)
+    ax.plot_surface(x, y, z, cmap=plt.cm.YlGnBu_r, zorder=-10, alpha=0.1)
+
 
     #alphas=[0.1 for i in range(len(music_FFT[0][0]))]
     graph = ax.scatter(music_FFT[0][0],
                        music_FFT[0][1],
-                       music_FFT[0][2], marker='o')
-
-    # ax.bar(xs, ys, alpha=0.8)
-    # background = ax.bar3d(x_his,y_his,z_his)
-    
-    # background  = 
+                       music_FFT[0][2], marker='o',zorder=10)
+    angle=0
         
     def update(frame):
         global angle
@@ -141,16 +154,16 @@ if __name__ == "__main__":
         graph._offsets3d = (trace[0],
                             trace[1],
                             trace[2])
-        graph._alpha = [min(trace[3][i]*2, 1) for i in range(len(trace[3]))]
+        graph._alpha = [min(trace[3][i]*3, 1) for i in range(len(trace[3]))]
         graph._sizes = trace[3]*50
 
         cm = plt.get_cmap("viridis")
         col = [cm(float(i) / len(music_FFT[0][0])) for i in range(len(music_FFT[0][0]))]
         graph._facecolor3d = col
         graph._edgecolor3d = col
-        # =============================================
-        # ax.view_init(elev=10., azim=angle)
-        # angle += 1
+
+        ax.view_init(elev=32., azim=angle)
+        angle += 16
         #time.sleep(update_interval)
         #print(time.time()-current_time)
         #return line,
