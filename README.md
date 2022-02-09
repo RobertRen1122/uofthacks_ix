@@ -1,5 +1,6 @@
-# UofTHacks IX
+# Re-Hear (UofTHacks IX)
 ## Introduction
+Check out our project on [devpost](https://devpost.com/software/re-hear)
 ### Team Members
 [Jason Chen](https://github.com/jiachengjason), [Robert Ren](https://github.com/RobertRen1122), [Serena Liu](https://github.com/Serena12142), [Lindy Zhai](https://github.com/LindyZh)
 ## Libraries
